@@ -2,11 +2,16 @@
 let australia = Object.values(country_data.australia);
 
 // Create an array of category labels
-let labels = Object.keys(country_data.australia);
+let labels = Object.keys(country_data);
 
 // Display the default plot
 function init() {
 
+  //create dropdowns for each key:
+  let dropdown = d3.select("#selDataset")
+  labels.forEach(country => {
+    dropdown.append('option').text(country).property('country')
+  })
   // Default trace for the country data
   let trace = {
     values: Object.values(country_data.australia),
@@ -40,6 +45,12 @@ function getData() {
   let newData = Object.values(country_data[selectedData])
   console.log(newData)
 
+
+  //change countryName 
+  d3.select("#countryName").text(selectedData)
+  // countryPop
+  //change countryName 
+  d3.select("#countryPop").text(newData[0])
   // Call function to update the chart
   Plotly.restyle("pie", "values", [newData])
 }
